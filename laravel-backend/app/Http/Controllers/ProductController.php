@@ -39,7 +39,7 @@ class ProductController extends Controller
     {
         $validated = $request->validate([
             'product_name' => 'required|string|max:100|unique:products,product_name',
-            'barcode' => 'required|string|max:50|unique:products,barcode',
+            'barcode' => 'nullable|string|max:50|unique:products,barcode',
             'category_id' => 'required|exists:categories,category_id',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
@@ -92,7 +92,7 @@ class ProductController extends Controller
     {
         $validated = $request->validate([
             'product_name' => 'required|string|max:100|unique:products,product_name,' . $product->product_id . ',product_id',
-            'barcode' => 'required|string|max:50|unique:products,barcode,' . $product->product_id . ',product_id',
+            'barcode' => 'nullable|string|max:50|unique:products,barcode,' . $product->product_id . ',product_id',
             'category_id' => 'required|exists:categories,category_id',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
