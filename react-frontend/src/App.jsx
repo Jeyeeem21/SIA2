@@ -19,7 +19,7 @@ import Staff from './pages/Staff'
 import Rentals from './pages/Rentals'
 import TogaRentals from './pages/TogaRentals'
 import Toast from './components/Toast'
-import Pos from './pages/staff/Pos'
+import Pos from './pages/Staff/Pos'
 
 function App() {
   return (
