@@ -23,7 +23,6 @@ class AdminSeeder extends Seeder
                 'role' => 'Admin',
                 'status' => 'active',
                 'email_verified' => true,
-                'email_verified_at' => now(),
             ]
         );
 
@@ -37,7 +36,6 @@ class AdminSeeder extends Seeder
                 'role' => 'Admin',
                 'status' => 'active',
                 'email_verified' => true,
-                'email_verified_at' => now(),
             ]
         );
 
