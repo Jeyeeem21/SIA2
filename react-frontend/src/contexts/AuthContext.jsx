@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import api from '../services/api';
 import { createAuthSignature, validateAuthData } from '../utils/security';
 
 const AuthContext = createContext(null);
@@ -80,9 +81,7 @@ export const AuthProvider = ({ children }) => {
       try {
         // Validate token with backend
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        const response = await axios.get('http://127.0.0.1:8000/api/user', {
-          withCredentials: true,
-        });
+        const response = await api.get('/user');
 
         // If backend validates the token, set user data from backend response
         if (response.data) {
@@ -108,16 +107,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       // Use API endpoint (no CSRF protection needed for API routes)
-      const response = await axios.post('http://127.0.0.1:8000/api/login', {
-        email,
-        password,
-      }, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        withCredentials: true, // Important for Laravel Sanctum
-      });
+      const response = await api.post('/login', { email, password });
 
       if (response.data.user) {
         const userData = response.data.user;
@@ -162,9 +152,7 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       // Call backend logout endpoint to invalidate token
-      await axios.post('http://127.0.0.1:8000/api/logout', {}, {
-        withCredentials: true,
-      });
+      await api.post('/logout');
     } catch (error) {
       console.error('Logout error:', error);
     } finally {
