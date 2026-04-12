@@ -1,5 +1,5 @@
 [phases.install]
-cmds = ["rm -rf node_modules && npm install --production=false"]
+cmds = ["rm -rf node_modules package-lock.json && npm install --production=false"]
 
 [phases.build]
 cmds = ["npm run build"]
@@ -9,6 +9,3 @@ nixPkgs = ["nodejs_20", "npm-10_x"]
 
 [start]
 cmd = "npx serve dist -s -l ${PORT:-3000}"
-
-[variables]
-NIXPACKS_NODE_INSTALL_CMD = "npm install"
