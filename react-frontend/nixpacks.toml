@@ -1,5 +1,5 @@
 [phases.install]
-cmds = ["npm install"]
+cmds = ["npm install --production=false"]
 
 [phases.build]
 cmds = ["npm run build"]
@@ -9,3 +9,6 @@ nixPkgs = ["nodejs_20", "npm-9_x"]
 
 [start]
 cmd = "npx serve dist -s -l ${PORT:-3000}"
+
+[variables]
+NIXPACKS_NODE_INSTALL_CMD = "npm install"
