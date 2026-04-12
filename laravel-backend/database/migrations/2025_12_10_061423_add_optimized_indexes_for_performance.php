@@ -6,23 +6,29 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    private function indexExists(string $table, string $indexName): bool
-    {
-        $indexes = Schema::getIndexes($table);
-        foreach ($indexes as $index) {
-            if ($index['name'] === $indexName) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     private function safeIndex(string $table, $columns, string $indexName): void
     {
-        if (!$this->indexExists($table, $indexName)) {
+        try {
+            // Check table exists
+            if (!Schema::hasTable($table)) return;
+
+            // Check all columns exist
+            $cols = is_array($columns) ? $columns : [$columns];
+            foreach ($cols as $col) {
+                if (!Schema::hasColumn($table, $col)) return;
+            }
+
+            // Check index doesn't already exist
+            $indexes = Schema::getIndexes($table);
+            foreach ($indexes as $index) {
+                if ($index['name'] === $indexName) return;
+            }
+
             Schema::table($table, function (Blueprint $table) use ($columns, $indexName) {
                 $table->index($columns, $indexName);
             });
+        } catch (\Exception $e) {
+            // Skip failed indexes silently - non-critical optimization
         }
     }
 
