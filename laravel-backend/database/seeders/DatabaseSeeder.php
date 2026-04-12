@@ -13,17 +13,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Seed all tables
+        // Seed essential tables only
         $this->call([
-            AdminSeeder::class,           // Create admin accounts first
+            AdminSeeder::class,
             CategorySeeder::class,
             ProductSeeder::class,
-            InventorySeeder::class,
-            RentalPropertiesSeeder::class,
-            RentalTenantsSeeder::class,
-            RentalContractsSeeder::class,
-            RentalPaymentsSeeder::class,
-            RentalMaintenanceSeeder::class,
+            // InventorySeeder::class,
+            // RentalPropertiesSeeder::class,
+            // RentalTenantsSeeder::class,
+            // RentalContractsSeeder::class,
+            // RentalPaymentsSeeder::class,
+            // RentalMaintenanceSeeder::class,
         ]);
     }
 }

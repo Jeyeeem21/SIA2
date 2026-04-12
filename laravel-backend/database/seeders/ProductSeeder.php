@@ -353,6 +353,11 @@ class ProductSeeder extends Seeder
             ],
         ];
 
-        DB::table('products')->insert($products);
+        foreach ($products as $product) {
+            DB::table('products')->updateOrInsert(
+                ['barcode' => $product['barcode']],
+                $product
+            );
+        }
     }
 }
