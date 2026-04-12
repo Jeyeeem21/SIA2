@@ -55,7 +55,7 @@ Run this locally in terminal:
 
 Copy the output (looks like: base64:xxxxxxxxxxxxxxxxxxx)
 Save it somewhere, you'll need it in Step 5.
-
+base64:LWcv/1/FDOzqdswMMo2mMNJS4JM/+dImEFlrMhpMYJI=
 
 ============================================================
 STEP 5: ADD LARAVEL BACKEND SERVICE
