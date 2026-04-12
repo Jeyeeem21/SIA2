@@ -15,6 +15,7 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
+        try {
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
@@ -43,11 +44,20 @@ class AuthController extends Controller
             ]);
         }
 
-        // Update last login
-        $user->update(['last_login' => now()]);
+        // Update last login (best effort — don't fail login if this fails)
+        try {
+            $user->update(['last_login' => now()]);
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::warning('Failed to update last_login: ' . $e->getMessage());
+        }
 
         // Create token
-        $token = $user->createToken('auth-token')->plainTextToken;
+        try {
+            $token = $user->createToken('auth-token')->plainTextToken;
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Token creation failed: ' . $e->getMessage());
+            return response()->json(['message' => 'Token creation failed: ' . $e->getMessage()], 500);
+        }
 
         return response()->json([
             'user' => [
@@ -61,6 +71,12 @@ class AuthController extends Controller
             ],
             'token' => $token,
         ]);
+        } catch (ValidationException $e) {
+            throw $e;
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Login error: ' . $e->getMessage() . ' ' . $e->getTraceAsString());
+            return response()->json(['message' => 'Server error: ' . $e->getMessage()], 500);
+        }
     }
 
     /**
