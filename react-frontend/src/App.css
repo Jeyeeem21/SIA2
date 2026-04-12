@@ -8,103 +8,78 @@
   min-height: 100vh;
 }
 
+/* Animations */
 @keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-fade-in {
-  animation: fade-in 0.6s ease-out;
+  animation: fade-in 0.3s ease-out;
 }
 
-/* Smooth scrollbar for main content */
+/* Minimal scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
-  border-radius: 10px;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #06b6d4, #14b8a6);
+  background: #d1d5db;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #0891b2, #0d9488);
+  background: #9ca3af;
 }
 
-/* Sidebar scrollbar - positioned on left */
+/* Sidebar scrollbar */
 .sidebar-scroll {
   overflow-y: auto;
-  direction: rtl; /* Flip scrollbar to left */
-}
-
-.sidebar-scroll > * {
-  direction: ltr; /* Keep content left-to-right */
 }
 
 .sidebar-scroll::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 
 .sidebar-scroll::-webkit-scrollbar-track {
-  background: rgba(30, 41, 59, 0.3);
-  border-radius: 10px;
-  margin: 8px 0;
+  background: transparent;
 }
 
 .sidebar-scroll::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #06b6d4, #14b8a6);
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 10px;
 }
 
 .sidebar-scroll::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #0891b2, #0d9488);
+  background: rgba(255, 255, 255, 0.25);
 }
 
-/* Smooth page transitions */
+/* Page transitions */
 @keyframes page-enter {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .page-transition {
-  animation: page-enter 0.3s ease-out;
+  animation: page-enter 0.25s ease-out;
 }
 
-/* Smooth tab switching */
+/* Tab switching */
 @keyframes tab-switch {
-  from {
-    opacity: 0;
-    transform: translateX(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(-6px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 .tab-content {
   animation: tab-switch 0.2s ease-out;
 }
 
-/* Link hover smooth transition */
+/* Smooth transitions */
 a, button {
-  transition: all 0.2s ease-in-out;
+  transition: all 0.15s ease-in-out;
 }

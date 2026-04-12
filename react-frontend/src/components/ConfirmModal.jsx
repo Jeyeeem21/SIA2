@@ -53,9 +53,9 @@ const ConfirmModal = ({
       button: 'bg-amber-600 hover:bg-amber-700',
     },
     info: {
-      iconBg: 'bg-cyan-100',
-      iconColor: 'text-cyan-600',
-      button: 'bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-700 hover:to-teal-700',
+      iconBg: 'bg-emerald-100',
+      iconColor: 'text-emerald-600',
+      button: 'bg-emerald-600 hover:bg-emerald-700',
     },
     success: {
       iconBg: 'bg-emerald-100',
@@ -78,7 +78,7 @@ const ConfirmModal = ({
       className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4"
       onClick={handleBackdropClick}
     >
-      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full">
+      <div className="bg-white rounded-xl shadow-sm max-w-md w-full">
         <div className="p-6">
           {/* Icon */}
           <div className={`flex items-center justify-center w-16 h-16 ${styles.iconBg} rounded-full mx-auto mb-4`}>
@@ -86,17 +86,17 @@ const ConfirmModal = ({
           </div>
 
           {/* Title */}
-          <h3 className="text-2xl font-bold text-slate-900 text-center mb-2">
+          <h3 className="text-2xl font-bold text-gray-900 text-center mb-2">
             {title}
           </h3>
 
           {/* Message */}
-          <p className="text-slate-600 text-center mb-6">
+          <p className="text-gray-600 text-center mb-6">
             {message}
             {itemName && (
               <>
                 {' '}
-                <span className="font-semibold text-slate-900">{itemName}</span>?
+                <span className="font-semibold text-gray-900">{itemName}</span>?
               </>
             )}
           </p>
@@ -106,14 +106,14 @@ const ConfirmModal = ({
             <button
               onClick={onClose}
               disabled={isLoading}
-              className="flex-1 px-6 py-3 border-2 border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 px-4 py-2.5 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-semibold text-[13px] disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {cancelText}
             </button>
             <button
               onClick={onConfirm}
               disabled={isLoading}
-              className={`flex-1 px-6 py-3 ${styles.button} text-white rounded-lg transition-all font-semibold shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2`}
+              className={`flex-1 px-6 py-3 ${styles.button} text-white rounded-lg transition-all font-semibold shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2`}
             >
               {isLoading && (
                 <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>

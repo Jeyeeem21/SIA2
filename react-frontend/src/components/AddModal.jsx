@@ -74,17 +74,17 @@ const AddModal = ({ isOpen, onClose, title, fields, onSubmit }) => {
 
             return (
               <div key={index} className={field.fullWidth ? 'md:col-span-2' : ''}>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-1.5">
                   {field.label}
-                  {field.required && <span className="text-red-500 ml-1">*</span>}
+                  {field.required && <span className="text-red-500 ml-0.5">*</span>}
                 </label>
                 
                 {field.type === 'select' ? (
                 <select
                   value={formData[field.key] || ''}
                   onChange={(e) => handleChange(field.key, e.target.value)}
-                  className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent ${
-                    errors[field.key] ? 'border-red-500' : 'border-gray-300'
+                  className={`w-full px-3 py-2 border rounded-lg text-sm focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none ${
+                    errors[field.key] ? 'border-red-400' : 'border-gray-300'
                   }`}
                 >
                   <option value="">Select {field.label}</option>
@@ -99,8 +99,8 @@ const AddModal = ({ isOpen, onClose, title, fields, onSubmit }) => {
                   value={formData[field.key] || ''}
                   onChange={(e) => handleChange(field.key, e.target.value)}
                   rows={field.rows || 3}
-                  className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent ${
-                    errors[field.key] ? 'border-red-500' : 'border-gray-300'
+                  className={`w-full px-3 py-2 border rounded-lg text-sm focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none ${
+                    errors[field.key] ? 'border-red-400' : 'border-gray-300'
                   }`}
                   placeholder={field.placeholder}
                 />
@@ -110,13 +110,13 @@ const AddModal = ({ isOpen, onClose, title, fields, onSubmit }) => {
                     type="file"
                     accept={field.accept || 'image/*'}
                     onChange={(e) => handleFileChange(field.key, e.target.files[0])}
-                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent ${
-                      errors[field.key] ? 'border-red-500' : 'border-gray-300'
+                    className={`w-full px-3 py-2 border rounded-lg text-sm focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none ${
+                      errors[field.key] ? 'border-red-400' : 'border-gray-300'
                     }`}
                   />
                   {formData[field.key] && (
                     <div className="mt-2">
-                      <img src={formData[field.key]} alt="Preview" className="h-32 w-32 object-cover rounded-lg border border-gray-300" />
+                      <img src={formData[field.key]} alt="Preview" className="h-24 w-24 object-cover rounded-lg border border-gray-200" />
                     </div>
                   )}
                 </div>
@@ -128,32 +128,32 @@ const AddModal = ({ isOpen, onClose, title, fields, onSubmit }) => {
                   step={field.step}
                   min={field.min}
                   max={field.max}
-                  className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent ${
-                    errors[field.key] ? 'border-red-500' : 'border-gray-300'
+                  className={`w-full px-3 py-2 border rounded-lg text-sm focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none ${
+                    errors[field.key] ? 'border-red-400' : 'border-gray-300'
                   }`}
                   placeholder={field.placeholder}
                 />
               )}
               
               {errors[field.key] && (
-                <p className="text-red-500 text-sm mt-1">{errors[field.key]}</p>
+                <p className="text-red-500 text-xs mt-1">{errors[field.key]}</p>
               )}
             </div>
           );
           })}
         </div>
 
-        <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-gray-200">
+        <div className="flex justify-end gap-2.5 mt-6 pt-4 border-t border-gray-200">
           <button
             type="button"
             onClick={onClose}
-            className="px-6 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+            className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors"
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="px-6 py-2 bg-gradient-to-r from-cyan-500 to-teal-500 text-white rounded-lg hover:from-cyan-600 hover:to-teal-600 transition-all"
+            className="px-4 py-2 bg-emerald-600 text-white rounded-lg text-sm font-medium hover:bg-emerald-700 transition-colors"
           >
             Add
           </button>

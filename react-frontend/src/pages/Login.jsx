@@ -1,156 +1,87 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Mail, Lock, Eye, EyeOff, LogIn, AlertCircle } from 'lucide-react';
+import usePageTitle from '../hooks/usePageTitle';
+import { Mail, Lock, Eye, EyeOff, AlertCircle } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import toast from 'react-hot-toast';
 
 const Login = () => {
+  usePageTitle('Sign In');
   const { login } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
+  const [formData, setFormData] = useState({ email: '', password: '' });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
-
     try {
       const result = await login(formData.email, formData.password);
-      
-      if (!result.success) {
-        setError(result.message);
-        toast.error(result.message);
-      }
-    } catch (error) {
-      const errorMessage = 'An error occurred. Please try again.';
-      setError(errorMessage);
-      toast.error(errorMessage);
-    } finally {
-      setLoading(false);
-    }
+      if (!result.success) { setError(result.message); toast.error(result.message); }
+    } catch {
+      const msg = 'An error occurred. Please try again.';
+      setError(msg); toast.error(msg);
+    } finally { setLoading(false); }
   };
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-cyan-50/30 to-teal-50/20 flex items-center justify-center p-8">
-      <div className="max-w-md w-full">
-        {/* Logo/Header */}
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
+      <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <div className="inline-block bg-gradient-to-br from-cyan-500 to-teal-600 p-4 rounded-2xl shadow-lg mb-4">
-            <LogIn className="w-12 h-12 text-white" />
+          <div className="inline-flex items-center justify-center w-14 h-14 bg-emerald-600 rounded-2xl mb-4 shadow-[0_8px_25px_rgba(5,150,105,0.25)]">
+            <svg className="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
           </div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-slate-900 via-cyan-800 to-teal-900 bg-clip-text text-transparent mb-2">
-            Sign In to Your Account
-          </h1>
-          <p className="text-slate-600">
-            Enter your credentials to access the Business Center system.
-          </p>
+          <h1 className="text-[22px] font-bold text-gray-900 tracking-tight">Welcome back</h1>
+          <p className="text-[13px] text-gray-500 mt-1">Sign in to your Business Center account</p>
         </div>
 
-        {/* Login Form */}
-        <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-8">
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.06)] p-7">
           {error && (
-            <div className="mb-6 p-4 bg-rose-50 border border-rose-200 rounded-lg flex items-start gap-3">
-              <AlertCircle className="w-5 h-5 text-rose-600 flex-shrink-0 mt-0.5" />
-              <p className="text-sm text-rose-700">{error}</p>
+            <div className="mb-5 p-3 bg-red-50 border border-red-100 rounded-xl flex items-start gap-2.5">
+              <AlertCircle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
+              <p className="text-[13px] text-red-600">{error}</p>
             </div>
           )}
-          
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Email Field */}
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-2">
-                Email Address
-              </label>
+              <label className="block text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Email</label>
               <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full pl-12 pr-4 py-3 border-2 border-slate-200 rounded-xl focus:border-cyan-600 focus:outline-none transition-colors"
-                  placeholder="Enter your email"
-                  required
-                />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <input type="email" name="email" value={formData.email} onChange={handleChange}
+                  className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl text-[13px] focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none transition-all"
+                  placeholder="you@example.com" required />
               </div>
             </div>
-
-            {/* Password Field */}
             <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-2">
-                Password
-              </label>
+              <label className="block text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Password</label>
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  className="w-full pl-12 pr-12 py-3 border-2 border-slate-200 rounded-xl focus:border-cyan-600 focus:outline-none transition-colors"
-                  placeholder="Enter your password"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
-                >
-                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <input type={showPassword ? 'text' : 'password'} name="password" value={formData.password} onChange={handleChange}
+                  className="w-full pl-10 pr-10 py-2.5 border border-gray-200 rounded-xl text-[13px] focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none transition-all"
+                  placeholder="Enter your password" required />
+                <button type="button" onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors">
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
             </div>
-
-            {/* Forgot Password */}
-            <div className="text-right">
-              <Link
-                to="/forgot-password"
-                className="text-sm text-cyan-600 hover:text-cyan-700 font-medium"
-              >
-                Forgot your password? Reset it here.
-              </Link>
-            </div>
-
-            {/* Submit Button */}
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-gradient-to-r from-cyan-600 to-teal-600 text-white py-3 rounded-xl font-semibold shadow-lg shadow-cyan-500/30 hover:shadow-xl hover:shadow-cyan-500/40 transition-all hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-            >
-              Sign In
+            <button type="submit" disabled={loading}
+              className="w-full bg-emerald-600 text-white py-2.5 rounded-xl text-[13px] font-semibold hover:bg-emerald-700 active:scale-[0.98] transition-all shadow-[0_4px_12px_rgba(5,150,105,0.2)] disabled:opacity-50 disabled:cursor-not-allowed mt-1">
+              {loading ? (
+                <span className="flex items-center justify-center gap-2">
+                  <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  Signing in…
+                </span>
+              ) : 'Sign In'}
             </button>
           </form>
-
-          {/* Register Link */}
-          <div className="mt-6 text-center">
-            <p className="text-slate-600">
-              Don't have an account?{' '}
-              <Link
-                to="/register"
-                className="text-cyan-600 hover:text-cyan-700 font-semibold"
-              >
-                Create Account
-              </Link>
-            </p>
-          </div>
         </div>
-
-        {/* Footer */}
-        <p className="text-center text-sm text-slate-500 mt-8">
-          © 2025 Mindoro State University – Bongabong Campus
-        </p>
+        <p className="text-center text-[11px] text-gray-400 mt-6">© 2025 Mindoro State University – Bongabong Campus</p>
       </div>
     </div>
   );

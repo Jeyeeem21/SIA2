@@ -40,19 +40,19 @@ export const getStatusBadge = (status) => {
   
   switch(statusLower) {
     case 'in stock':
-      badgeClass = 'px-3 py-1 rounded-full text-xs font-semibold bg-teal-100 text-teal-700 border border-teal-200';
+      badgeClass = 'px-3 py-1 rounded-full text-[10px] font-bold bg-teal-100 text-teal-700 border border-teal-200';
       text = 'In Stock';
       break;
     case 'low stock':
-      badgeClass = 'px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-700 border border-amber-200';
+      badgeClass = 'px-3 py-1 rounded-full text-[10px] font-bold bg-amber-100 text-amber-700 border border-amber-200';
       text = 'Low Stock';
       break;
     case 'out of stock':
-      badgeClass = 'px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-700 border border-red-200';
+      badgeClass = 'px-3 py-1 rounded-full text-[10px] font-bold bg-red-100 text-red-700 border border-red-200';
       text = 'Out of Stock';
       break;
     default:
-      badgeClass = 'px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200';
+      badgeClass = 'px-3 py-1 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200';
   }
   
   return <span className={badgeClass}>{text}</span>;

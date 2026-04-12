@@ -8,7 +8,7 @@ const MainLayout = () => {
   const { isAdmin } = useAuth();
 
   return (
-    <div className="flex h-screen overflow-hidden bg-slate-50">
+    <div className="flex h-screen overflow-hidden bg-gray-50">
       {/* Desktop Sidebar - Only for Admins */}
       {isAdmin && (
         <div className="hidden md:block">

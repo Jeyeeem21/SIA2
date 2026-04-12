@@ -1,12 +1,6 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
-import { XCircle } from 'lucide-react';
-
-/**
- * UNIFIED MODAL COMPONENT
- *
- * A reusable modal component with consistent design across the entire application.
- */
+import { X } from 'lucide-react';
 
 const Modal = ({
   isOpen,
@@ -18,7 +12,6 @@ const Modal = ({
   showCloseButton = true,
   closeOnBackdrop = true,
   icon,
-  headerGradient = 'from-cyan-600 to-teal-600',
   noPadding = false
 }) => {
   if (!isOpen) return null;
@@ -38,41 +31,33 @@ const Modal = ({
 
   const modalMarkup = (
     <div
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center"
+      className="fixed inset-0 bg-black/40 backdrop-blur-[2px] z-50 flex items-center justify-center p-4"
       onClick={handleBackdropClick}
       role="dialog"
       aria-modal="true"
     >
-      {/* inner padding kept on the inner wrapper (not the overlay) to avoid overlay being inset by ancestor styles */}
-      <div className="w-full px-4">
-        <div className={`mx-auto bg-white rounded-2xl shadow-2xl ${sizeClasses[size]} w-full max-h-[90vh] overflow-y-auto`}>
-          {/* Modal Header */}
-          <div className={`sticky top-0 bg-gradient-to-r ${headerGradient} text-white p-6 rounded-t-2xl`}>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                {icon && (
-                  <div className="flex-shrink-0">{icon}</div>
-                )}
-                <div>
-                  <h2 className="text-2xl font-bold">{title}</h2>
-                  {subtitle && <p className="text-white/80 text-sm mt-1">{subtitle}</p>}
-                </div>
+      <div className={`bg-white rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.12)] ${sizeClasses[size]} w-full max-h-[90vh] overflow-y-auto animate-fade-in border border-gray-100`}>
+        <div className="sticky top-0 bg-white border-b border-gray-100 px-6 py-4 rounded-t-2xl z-10">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              {icon && <div className="flex-shrink-0 text-gray-500">{icon}</div>}
+              <div>
+                <h2 className="text-[15px] font-bold text-gray-900">{title}</h2>
+                {subtitle && <p className="text-[12px] text-gray-500 mt-0.5">{subtitle}</p>}
               </div>
-              {showCloseButton && (
-                <button
-                  onClick={onClose}
-                  className="p-2 hover:bg-white/20 rounded-lg transition-colors flex-shrink-0"
-                  type="button"
-                >
-                  <XCircle className="w-6 h-6" />
-                </button>
-              )}
             </div>
+            {showCloseButton && (
+              <button
+                onClick={onClose}
+                className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors text-gray-400 hover:text-gray-600 flex-shrink-0"
+                type="button"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
           </div>
-
-          {/* Modal Body */}
-          <div className={noPadding ? '' : 'p-6'}>{children}</div>
         </div>
+        <div className={noPadding ? '' : 'p-6'}>{children}</div>
       </div>
     </div>
   );

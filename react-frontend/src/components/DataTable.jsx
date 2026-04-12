@@ -19,55 +19,55 @@ const DataTable = ({
 }) => {
   if (loading) {
     return (
-      <div className="flex items-center justify-center gap-2 text-slate-500 py-12">
-        <div className="w-5 h-5 border-2 border-cyan-600 border-t-transparent rounded-full animate-spin"></div>
-        <span>Loading...</span>
+      <div className="flex items-center justify-center gap-2 text-gray-400 py-12">
+        <div className="w-4 h-4 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
+        <span className="text-sm">Loading...</span>
       </div>
     );
   }
 
   if (data.length === 0) {
     return (
-      <div className="text-center text-slate-500 py-12">{emptyMessage}</div>
+      <div className="text-center text-gray-400 py-12 text-sm">{emptyMessage}</div>
     );
   }
 
   // Default mobile card if not provided
   const defaultMobileCard = (item) => (
-    <div key={item[keyField]} className="bg-slate-50 rounded-xl p-4 space-y-3 border border-slate-200">
+    <div key={item[keyField]} className="bg-white rounded-lg p-4 space-y-2.5 border border-gray-200">
       {columns.slice(0, -1).map((column, idx) => (
         <div key={idx} className="flex justify-between text-sm">
-          <span className="text-slate-600">{column.header}:</span>
-          <span className="font-medium text-slate-900">
+          <span className="text-gray-500">{column.header}:</span>
+          <span className="font-medium text-gray-900">
             {column.render ? column.render(item) : item[column.key]}
           </span>
         </div>
       ))}
-      <div className="flex items-center gap-2 pt-2 border-t border-slate-200">
+      <div className="flex items-center gap-2 pt-2 border-t border-gray-100">
         {onView && (
           <button
             onClick={() => onView(item)}
-            className="flex-1 px-3 py-2 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors text-sm font-medium flex items-center justify-center gap-1"
+            className="flex-1 px-3 py-1.5 bg-gray-50 hover:bg-gray-100 text-gray-700 rounded-md transition-colors text-xs font-medium flex items-center justify-center gap-1"
           >
-            <Eye className="w-4 h-4" />
+            <Eye className="w-3.5 h-3.5" />
             View
           </button>
         )}
         {onEdit && (
           <button
             onClick={() => onEdit(item)}
-            className="flex-1 px-3 py-2 bg-cyan-50 hover:bg-cyan-100 text-cyan-600 rounded-lg transition-colors text-sm font-medium flex items-center justify-center gap-1"
+            className="flex-1 px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-600 rounded-md transition-colors text-xs font-medium flex items-center justify-center gap-1"
           >
-            <Edit className="w-4 h-4" />
+            <Edit className="w-3.5 h-3.5" />
             Edit
           </button>
         )}
         {onDelete && (
           <button
             onClick={() => onDelete(item)}
-            className="px-3 py-2 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg transition-colors"
+            className="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 rounded-md transition-colors"
           >
-            <Trash2 className="w-4 h-4" />
+            <Trash2 className="w-3.5 h-3.5" />
           </button>
         )}
       </div>
@@ -77,7 +77,7 @@ const DataTable = ({
   return (
     <>
       {/* Mobile Card View */}
-      <div className="block md:hidden p-4 space-y-4">
+      <div className="block md:hidden p-4 space-y-3">
         {data.map((item) => 
           renderMobileCard ? renderMobileCard(item) : defaultMobileCard(item)
         )}
@@ -86,12 +86,12 @@ const DataTable = ({
       {/* Desktop Table View */}
       <div className={`hidden md:block overflow-x-auto ${className}`}>
         <table className="w-full">
-          <thead className="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200">
-            <tr>
+          <thead>
+            <tr className="border-b border-gray-200">
               {columns.map((column, idx) => (
                 <th
                   key={idx}
-                  className={`px-6 py-4 text-xs font-semibold text-slate-600 uppercase tracking-wider ${
+                  className={`px-4 py-3 text-[11px] font-semibold text-gray-400 uppercase tracking-wider ${
                     column.align === 'right' ? 'text-right' : 
                     column.align === 'center' ? 'text-center' : 
                     'text-left'
@@ -102,13 +102,13 @@ const DataTable = ({
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-200">
+          <tbody className="divide-y divide-gray-100">
             {data.map((item) => (
-              <tr key={item[keyField]} className="hover:bg-slate-50 transition-colors">
+              <tr key={item[keyField]} className="hover:bg-gray-50/50 transition-colors">
                 {columns.map((column, idx) => (
                   <td
                     key={idx}
-                    className={`px-6 py-4 ${
+                    className={`px-4 py-3 text-sm ${
                       column.align === 'right' ? 'text-right' : 
                       column.align === 'center' ? 'text-center' : 
                       'text-left'

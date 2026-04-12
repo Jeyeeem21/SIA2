@@ -57,9 +57,9 @@ const EditModal = ({ isOpen, onClose, title, fields, data, onSubmit }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {fields.map((field, index) => (
             <div key={index} className={field.fullWidth ? 'md:col-span-2' : ''}>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-1.5">
                 {field.label}
-                {field.required && <span className="text-red-500 ml-1">*</span>}
+                {field.required && <span className="text-red-500 ml-0.5">*</span>}
               </label>
               
               {field.type === 'select' ? (
@@ -67,9 +67,9 @@ const EditModal = ({ isOpen, onClose, title, fields, data, onSubmit }) => {
                   value={formData[field.key] || ''}
                   onChange={(e) => handleChange(field.key, e.target.value)}
                   disabled={field.disabled}
-                  className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent ${
-                    errors[field.key] ? 'border-red-500' : 'border-gray-300'
-                  } ${field.disabled ? 'bg-gray-100 cursor-not-allowed' : ''}`}
+                  className={`w-full px-3 py-2 border rounded-lg text-sm focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none ${
+                    errors[field.key] ? 'border-red-400' : 'border-gray-300'
+                  } ${field.disabled ? 'bg-gray-50 cursor-not-allowed' : ''}`}
                 >
                   <option value="">Select {field.label}</option>
                   {field.options?.map((option, i) => (
@@ -84,9 +84,9 @@ const EditModal = ({ isOpen, onClose, title, fields, data, onSubmit }) => {
                   onChange={(e) => handleChange(field.key, e.target.value)}
                   rows={field.rows || 3}
                   disabled={field.disabled}
-                  className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent ${
-                    errors[field.key] ? 'border-red-500' : 'border-gray-300'
-                  } ${field.disabled ? 'bg-gray-100 cursor-not-allowed' : ''}`}
+                  className={`w-full px-3 py-2 border rounded-lg text-sm focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none ${
+                    errors[field.key] ? 'border-red-400' : 'border-gray-300'
+                  } ${field.disabled ? 'bg-gray-50 cursor-not-allowed' : ''}`}
                   placeholder={field.placeholder}
                 />
               ) : field.type === 'file' ? (
@@ -96,13 +96,13 @@ const EditModal = ({ isOpen, onClose, title, fields, data, onSubmit }) => {
                     accept={field.accept || 'image/*'}
                     onChange={(e) => handleFileChange(field.key, e.target.files[0])}
                     disabled={field.disabled}
-                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent ${
-                      errors[field.key] ? 'border-red-500' : 'border-gray-300'
-                    } ${field.disabled ? 'bg-gray-100 cursor-not-allowed' : ''}`}
+                    className={`w-full px-3 py-2 border rounded-lg text-sm focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none ${
+                      errors[field.key] ? 'border-red-400' : 'border-gray-300'
+                    } ${field.disabled ? 'bg-gray-50 cursor-not-allowed' : ''}`}
                   />
                   {formData[field.key] && (
                     <div className="mt-2">
-                      <img src={formData[field.key]} alt="Preview" className="h-32 w-32 object-cover rounded-lg border border-gray-300" />
+                      <img src={formData[field.key]} alt="Preview" className="h-24 w-24 object-cover rounded-lg border border-gray-200" />
                     </div>
                   )}
                 </div>
@@ -115,9 +115,9 @@ const EditModal = ({ isOpen, onClose, title, fields, data, onSubmit }) => {
                   step={field.step}
                   min={field.min}
                   max={field.max}
-                  className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent ${
-                    errors[field.key] ? 'border-red-500' : 'border-gray-300'
-                  } ${field.disabled ? 'bg-gray-100 cursor-not-allowed' : ''}`}
+                  className={`w-full px-3 py-2 border rounded-lg text-sm focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none ${
+                    errors[field.key] ? 'border-red-400' : 'border-gray-300'
+                  } ${field.disabled ? 'bg-gray-50 cursor-not-allowed' : ''}`}
                   placeholder={field.placeholder}
                 />
               )}
@@ -129,17 +129,17 @@ const EditModal = ({ isOpen, onClose, title, fields, data, onSubmit }) => {
           ))}
         </div>
 
-        <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-gray-200">
+        <div className="flex justify-end gap-2.5 mt-6 pt-4 border-t border-gray-200">
           <button
             type="button"
             onClick={onClose}
-            className="px-6 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+            className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors"
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="px-6 py-2 bg-gradient-to-r from-cyan-500 to-teal-500 text-white rounded-lg hover:from-cyan-600 hover:to-teal-600 transition-all"
+            className="px-4 py-2 bg-emerald-600 text-white rounded-lg text-sm font-medium hover:bg-emerald-700 transition-colors"
           >
             Save Changes
           </button>

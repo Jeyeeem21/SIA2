@@ -10,8 +10,8 @@ const DataCard = ({
 }) => {
   return (
     <div
-      className={`bg-slate-50 rounded-xl p-4 space-y-3 border border-slate-200 ${
-        onClick ? 'cursor-pointer hover:bg-slate-100 transition-colors' : ''
+      className={`bg-gray-50 rounded-xl p-4 space-y-3 border border-gray-200 ${
+        onClick ? 'cursor-pointer hover:bg-gray-100 transition-colors' : ''
       } ${className}`}
       onClick={onClick}
     >
@@ -35,13 +35,13 @@ DataCard.Body = ({ children, className = '' }) => (
 
 DataCard.Row = ({ label, value, className = '' }) => (
   <div className={`flex justify-between text-sm ${className}`}>
-    <span className="text-slate-600">{label}:</span>
-    <span className="font-medium text-slate-900">{value}</span>
+    <span className="text-gray-600">{label}:</span>
+    <span className="font-medium text-gray-900">{value}</span>
   </div>
 );
 
 DataCard.Footer = ({ children, className = '' }) => (
-  <div className={`flex items-center gap-2 pt-2 border-t border-slate-200 ${className}`}>
+  <div className={`flex items-center gap-2 pt-2 border-t border-gray-200 ${className}`}>
     {children}
   </div>
 );
