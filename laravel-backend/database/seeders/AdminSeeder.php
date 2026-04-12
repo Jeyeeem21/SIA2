@@ -14,7 +14,7 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
         // Create default admin account
-        User::firstOrCreate(
+        User::updateOrCreate(
             ['email' => 'admin@sia.com'],
             [
                 'full_name' => 'System Administrator',
@@ -27,7 +27,7 @@ class AdminSeeder extends Seeder
         );
 
         // Create additional test admin (optional)
-        User::firstOrCreate(
+        User::updateOrCreate(
             ['email' => 'test@example.com'],
             [
                 'full_name' => 'Test Admin',
