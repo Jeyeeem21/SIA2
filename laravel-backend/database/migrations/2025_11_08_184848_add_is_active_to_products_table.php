@@ -19,12 +19,36 @@ return new class extends Migration
         }
         
         // Update is_active based on stock and expiration
-        DB::statement('UPDATE products p 
-            LEFT JOIN inventories i ON p.product_id = i.product_id 
-            SET p.is_active = CASE 
-                WHEN i.quantity > 0 AND (p.expiration_date IS NULL OR p.expiration_date > NOW()) THEN 1 
-                ELSE 0 
-            END');
+        // Use database-agnostic approach
+        $driver = DB::connection()->getDriverName();
+        
+        if ($driver === 'mysql') {
+            DB::statement('UPDATE products p 
+                LEFT JOIN inventories i ON p.product_id = i.product_id 
+                SET p.is_active = CASE 
+                    WHEN i.quantity > 0 AND (p.expiration_date IS NULL OR p.expiration_date > NOW()) THEN 1 
+                    ELSE 0 
+                END');
+        } else {
+            // For SQLite and other databases, update products individually
+            $products = DB::table('products')->get();
+            foreach ($products as $product) {
+                $inventory = DB::table('inventories')
+                    ->where('product_id', $product->product_id)
+                    ->first();
+                
+                $isActive = false;
+                if ($inventory && $inventory->quantity > 0) {
+                    if (!$product->expiration_date || $product->expiration_date > now()) {
+                        $isActive = true;
+                    }
+                }
+                
+                DB::table('products')
+                    ->where('product_id', $product->product_id)
+                    ->update(['is_active' => $isActive]);
+            }
+        }
     }
 
     /**
