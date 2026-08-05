@@ -23,7 +23,7 @@ return [
         [
             'http://localhost:5173',
             'http://127.0.0.1:5173',
-            'https://minsubusinesscenter.up.railway.app',
+            'https://businesscenter.up.railway.app',
         ],
         env('CORS_ALLOWED_ORIGINS') ? explode(',', env('CORS_ALLOWED_ORIGINS')) : []
     )),
