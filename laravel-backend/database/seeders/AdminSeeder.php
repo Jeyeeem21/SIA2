@@ -15,7 +15,7 @@ class AdminSeeder extends Seeder
     {
         // Create default admin account
         User::updateOrCreate(
-            ['email' => 'jmpagaran@gmail.com'],
+            ['email' => 'admin@sia.com'],
             [
                 'full_name' => 'System Administrator',
                 'password' => Hash::make('admin123'),
@@ -39,8 +39,22 @@ class AdminSeeder extends Seeder
             ]
         );
 
+        // Create staff user
+        User::updateOrCreate(
+            ['email' => 'staff@sia.com'],
+            [
+                'full_name' => 'Staff User',
+                'password' => Hash::make('staff123'),
+                'phone' => '09111222333',
+                'role' => 'Staff',
+                'status' => 'active',
+                'email_verified' => true,
+            ]
+        );
+
         $this->command->info('✅ Admin accounts created successfully!');
         $this->command->info('📧 Admin Email: admin@sia.com | Password: admin123');
         $this->command->info('📧 Test Email: test@example.com | Password: password');
+        $this->command->info('📧 Staff Email: staff@sia.com | Password: staff123');
     }
 }
