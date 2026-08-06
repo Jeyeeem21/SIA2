@@ -1,1 +1,1 @@
-web: npx serve dist -s -p ${PORT:-3000}
+web: node node_modules/serve/build/main.js dist -s -l tcp://0.0.0.0:${PORT:-3000}
