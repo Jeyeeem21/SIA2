@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
@@ -11,6 +12,34 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RentalsController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\SalesAnalyticsController;
+
+// Health check route
+Route::get('health', function () {
+    try {
+        $connection = DB::connection()->getPdo();
+        $driver = DB::connection()->getDriverName();
+        $database = DB::connection()->getDatabaseName();
+        
+        return response()->json([
+            'status' => 'ok',
+            'database' => [
+                'connected' => true,
+                'driver' => $driver,
+                'database' => $database,
+            ],
+            'timestamp' => now()->toDateTimeString(),
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'database' => [
+                'connected' => false,
+                'error' => $e->getMessage(),
+            ],
+            'timestamp' => now()->toDateTimeString(),
+        ], 500);
+    }
+});
 
 // Authentication routes (public)
 Route::post('login', [AuthController::class, 'login']);
