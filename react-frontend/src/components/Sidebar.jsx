@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { usePrefetch } from '../hooks/usePrefetch';
+import ConfirmModal from './ConfirmModal';
 import {
   ChevronRight,
   LayoutDashboard,
@@ -23,6 +24,7 @@ const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showProductsSubmenu, setShowProductsSubmenu] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const location = useLocation();
   const userMenuRef = useRef(null);
   
@@ -246,11 +248,7 @@ const Sidebar = () => {
             </div>
             <div className="border-t border-gray-100 py-1">
               <button 
-                onClick={() => {
-                  if (window.confirm('Are you sure you want to log out?')) {
-                    logout();
-                  }
-                }}
+                onClick={() => setShowLogoutModal(true)}
                 className="w-full px-3 py-2 flex items-center gap-2.5 hover:bg-red-50 transition-colors text-left text-[13px] text-red-600"
               >
                 <LogOut className="w-4 h-4" />
@@ -260,6 +258,18 @@ const Sidebar = () => {
           </div>
         )}
       </div>
+
+      {/* Logout Confirmation Modal */}
+      <ConfirmModal
+        isOpen={showLogoutModal}
+        onClose={() => setShowLogoutModal(false)}
+        onConfirm={logout}
+        type="danger"
+        title="Log Out"
+        message="Are you sure you want to log out? You'll need to sign in again to access your account."
+        confirmText="Log Out"
+        cancelText="Cancel"
+      />
     </div>
   );
 };

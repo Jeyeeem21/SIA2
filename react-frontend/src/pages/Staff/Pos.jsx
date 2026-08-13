@@ -23,6 +23,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useAuth } from '../../contexts/AuthContext';
 import { settingsAPI, authAPI, ordersAPI } from '../../services/api';
 import AddOrderModal from '../../components/AddOrderModal';
+import ConfirmModal from '../../components/ConfirmModal';
 import { useProducts } from '../../hooks/useProducts';
 import { useInventory } from '../../hooks/useInventory';
 import { useOrders, useCreateOrder, useTodaysOrders, useSearchOrder, useVoidOrder } from '../../hooks/useOrders';
@@ -50,6 +51,7 @@ const Pos = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showUserMenuPos, setShowUserMenuPos] = useState(false);
   const [selectedSystem, setSelectedSystem] = useState('POS');
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const userMenuRefPos = useRef(null);
   
   // Payment modal state (like Orders.jsx)
@@ -918,11 +920,7 @@ const Pos = () => {
                 </div>
                 <div className="border-t border-gray-700 py-2">
                   <button 
-                    onClick={() => {
-                      if (window.confirm('Are you sure you want to log out?')) {
-                        logout();
-                      }
-                    }}
+                    onClick={() => setShowLogoutModal(true)}
                     className="w-full px-4 py-3 flex items-center gap-3 hover:bg-rose-500/10 transition-colors text-left group"
                   >
                     <LogOut className="w-4 h-4 text-rose-400 group-hover:text-rose-300 transition-colors" />
@@ -932,6 +930,18 @@ const Pos = () => {
               </div>
             )}
           </div>
+
+          {/* Logout Confirmation Modal */}
+          <ConfirmModal
+            isOpen={showLogoutModal}
+            onClose={() => setShowLogoutModal(false)}
+            onConfirm={logout}
+            type="danger"
+            title="Log Out"
+            message="Are you sure you want to log out? Any unsaved cart items will be lost."
+            confirmText="Log Out"
+            cancelText="Cancel"
+          />
         </div>
       </div>
 
