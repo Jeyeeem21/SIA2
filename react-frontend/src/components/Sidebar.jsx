@@ -246,7 +246,11 @@ const Sidebar = () => {
             </div>
             <div className="border-t border-gray-100 py-1">
               <button 
-                onClick={logout}
+                onClick={() => {
+                  if (window.confirm('Are you sure you want to log out?')) {
+                    logout();
+                  }
+                }}
                 className="w-full px-3 py-2 flex items-center gap-2.5 hover:bg-red-50 transition-colors text-left text-[13px] text-red-600"
               >
                 <LogOut className="w-4 h-4" />

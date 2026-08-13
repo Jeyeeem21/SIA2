@@ -918,7 +918,11 @@ const Pos = () => {
                 </div>
                 <div className="border-t border-gray-700 py-2">
                   <button 
-                    onClick={logout}
+                    onClick={() => {
+                      if (window.confirm('Are you sure you want to log out?')) {
+                        logout();
+                      }
+                    }}
                     className="w-full px-4 py-3 flex items-center gap-3 hover:bg-rose-500/10 transition-colors text-left group"
                   >
                     <LogOut className="w-4 h-4 text-rose-400 group-hover:text-rose-300 transition-colors" />
