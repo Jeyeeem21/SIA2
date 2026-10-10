@@ -15,7 +15,7 @@ class AdminSeeder extends Seeder
     {
         // Create default admin account
         User::updateOrCreate(
-            ['email' => 'admin@sia.com'],
+            ['email' => 'jmpagaran24@gmail.com'],
             [
                 'full_name' => 'System Administrator',
                 'password' => Hash::make('admin123'),
