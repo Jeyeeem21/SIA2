@@ -1,0 +1,30 @@
+const apiUrl = (import.meta.env.VITE_API_URL ?? 'http://127.0.0.1:8000/api').replace(/\/$/, '')
+
+export async function apiRequest(path, options = {}) {
+  const headers = new Headers(options.headers)
+  headers.set('Accept', 'application/json')
+
+  if (options.body && !(options.body instanceof FormData)) {
+    headers.set('Content-Type', 'application/json')
+  }
+
+  const response = await fetch(`${apiUrl}${path}`, {
+    credentials: 'include',
+    ...options,
+    headers,
+  })
+
+  if (response.status === 204) {
+    return null
+  }
+
+  const data = await response.json().catch(() => ({}))
+  if (!response.ok) {
+    const messages = data.errors ? Object.values(data.errors).flat().join(' ') : data.message
+    throw new Error(messages || 'The request could not be completed.')
+  }
+
+  return data
+}
+
+export { apiUrl }
